@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Autumn Acoustics</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <div class="container custcontainer">
+
+        <h1>Autumn Acoustics</h1>
+        <p>Press any key to get started!</p>
+        <p>Wins: </p>
+        <p>Current Word</p>
+        <p>Number of Guesses Remaining</p>
+        <p>Letters Already Guessed:</p>
+
+    </div>
+    
+
+    <script>
+        // Array of words
+        let computerWords = ["pumpkin", "harvest", "cider"];
+        // Choose word randomly
+        let randomNum = Math.floor(Math.random() * computerWords.length);
+        let computerCurrWord = computerWords[randomNum];
+
+        // Test random word
+        console.log(computerCurrWord);
+
+        // Create underscores to fit length of random word
+        let underScore = [];
+        let generateUnderscore = function () {
+            for (let i = 0; i < computerCurrWord.length; i++) {
+                underScore.push('_');
+            }
+            return underScore;
+        }
+
+        // Test underscores
+        console.log(generateUnderscore());
+
+
+        let rightWord = [];
+        let wrongWord = [];
+        let wins = 0;
+        let guessRemaining = 8;
+        
+
+    
+        document.onkeyup = function(event) {
+            let userGuess = event.key;
+            console.log(userGuess);
+            // console.log(computerCurrWord.indexOf(userGuess));
+            if (computerCurrWord.indexOf(userGuess) > -1) {
+                // console.log(true);
+                rightWord.push(userGuess);
+            } else {
+                wrongWord.push(userGuess);
+            }
+            console.log(rightWord);
+            console.log(wrongWord);
+
+        }
+            
+            
+        
+
+
+
+    </script>
+
+</body>
+</html>
