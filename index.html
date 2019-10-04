@@ -13,15 +13,23 @@
 
         <h1>Autumn Acoustics</h1>
         <p>Press any key to get started!</p>
-        <p>Wins: </p>
-        <p>Current Word</p>
-        <p>Number of Guesses Remaining</p>
-        <p>Letters Already Guessed:</p>
+        <p id="wins-text">Wins: 0</p>
+        <p id="current-word"></p>
+        <p id="guesses-remaining">Number of Guesses Remaining</p>
+        <p id="wrong-letters">Letters Already Guessed:</p>
 
     </div>
     
 
     <script>
+        let winsText = document.getElementById("wins-text");
+        let currentWord = document.getElementById("current-word");
+        let guessRemaining = document.getElementById("guesses-remaining");
+        let wrongLetters = document.getElementById("wrong-letters");
+
+
+
+
         // Array of words
         let computerWords = ["pumpkin", "harvest", "cider"];
         // Choose word randomly
@@ -35,7 +43,7 @@
         let underScore = [];
         let generateUnderscore = function () {
             for (let i = 0; i < computerCurrWord.length; i++) {
-                underScore.push('_');
+                underScore.push("_");
             }
             return underScore;
         }
@@ -47,7 +55,7 @@
         let rightWord = [];
         let wrongWord = [];
         let wins = 0;
-        let guessRemaining = 8;
+        
         
 
     
@@ -58,15 +66,26 @@
             if (computerCurrWord.indexOf(userGuess) > -1) {
                 // console.log(true);
                 rightWord.push(userGuess);
+                underScore[computerCurrWord.indexOf(userGuess)] = userGuess;
+                console.log(underScore);
+                if (underScore.join("") == computerCurrWord) {
+                    wins++;
+                    console.log("you win");
+                    console.log(underScore.join(""))
+                    console.log(wins);
+                }
             } else {
                 wrongWord.push(userGuess);
             }
             console.log(rightWord);
             console.log(wrongWord);
 
+            winsText.textContent = `Wins: ${wins}`;
+            currentWord.textContent = underScore.join(" ");
+            // guessRemaining.textContent = 
+            // wrongLetters.textContent = 
+
         }
-            
-            
         
 
 
