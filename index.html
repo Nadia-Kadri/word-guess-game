@@ -15,29 +15,28 @@
         <p>Press any key to get started!</p>
         <p id="wins-text">Wins: 0</p>
         <p id="current-word"></p>
-        <p id="guesses-remaining">Number of Guesses Remaining</p>
+        <p id="guesses-remaining">Number of Guesses Remaining: 5</p>
         <p id="wrong-letters">Letters Already Guessed:</p>
 
     </div>
     
 
     <script>
+
         let winsText = document.getElementById("wins-text");
         let currentWord = document.getElementById("current-word");
         let guessRemaining = document.getElementById("guesses-remaining");
         let wrongLetters = document.getElementById("wrong-letters");
-
-
-
+        let docUnderScore = document.getElementById("current-word");
 
         // Array of words
-        let computerWords = ["pumpkin", "harvest", "cider"];
-        // Choose word randomly
+        let computerWords = ["harvest", "cider", "corn", "leaf", "amber"];
+
+        // Random Computer Word
         let randomNum = Math.floor(Math.random() * computerWords.length);
         let computerCurrWord = computerWords[randomNum];
-
-        // Test random word
-        console.log(computerCurrWord);
+            // Test random word
+            console.log(computerCurrWord);
 
         // Create underscores to fit length of random word
         let underScore = [];
@@ -47,49 +46,40 @@
             }
             return underScore;
         }
+            // Test underscores
+            // console.log(generateUnderscore());
+        generateUnderscore()
 
-        // Test underscores
-        console.log(generateUnderscore());
-
-
+        //Display underscores
+        currentWord.textContent = underScore.join(" ");
+    
         let rightWord = [];
         let wrongWord = [];
         let wins = 0;
-        
-        
-
+        let remaining = 5;
     
         document.onkeyup = function(event) {
             let userGuess = event.key;
             console.log(userGuess);
-            // console.log(computerCurrWord.indexOf(userGuess));
             if (computerCurrWord.indexOf(userGuess) > -1) {
-                // console.log(true);
                 rightWord.push(userGuess);
                 underScore[computerCurrWord.indexOf(userGuess)] = userGuess;
-                console.log(underScore);
-                if (underScore.join("") == computerCurrWord) {
-                    wins++;
-                    console.log("you win");
-                    console.log(underScore.join(""))
-                    console.log(wins);
-                }
             } else {
                 wrongWord.push(userGuess);
+                remaining--;
             }
-            console.log(rightWord);
-            console.log(wrongWord);
+
+            if (underScore.join("") == computerCurrWord) {
+                wins++;
+                remaining = 5;
+            }
 
             winsText.textContent = `Wins: ${wins}`;
             currentWord.textContent = underScore.join(" ");
-            // guessRemaining.textContent = 
-            // wrongLetters.textContent = 
-
+            guessRemaining.textContent = `Number of Guesses Remaining: ${remaining}`;
+            wrongLetters.textContent = `Letters Already Guessed: ${wrongWord.join(" ")}`;
         }
         
-
-
-
     </script>
 
 </body>
