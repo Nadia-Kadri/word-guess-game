@@ -56,7 +56,12 @@
         let rightWord = [];
         let wrongWord = [];
         let wins = 0;
-        let remaining = 5;
+        let remaining = 9;
+
+        function empty () {
+            wrongWord.length = 0;
+            remaining = 9;
+        }
     
         document.onkeyup = function(event) {
             let userGuess = event.key;
@@ -67,11 +72,14 @@
             } else {
                 wrongWord.push(userGuess);
                 remaining--;
+                    if (remaining < 1) {
+                            empty ()
+                        }
             }
 
             if (underScore.join("") == computerCurrWord) {
                 wins++;
-                remaining = 5;
+                empty()
             }
 
             winsText.textContent = `Wins: ${wins}`;
