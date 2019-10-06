@@ -9,86 +9,20 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+    
     <div class="container custcontainer">
 
         <h1>Autumn Acoustics</h1>
         <p>Press any key to get started!</p>
-        <p id="wins-text">Wins: 0</p>
         <p id="current-word"></p>
-        <p id="guesses-remaining">Number of Guesses Remaining: 5</p>
+        <p id="wins-text">Wins: 0</p>
+        <p id="losses-text">Losses: 0</p>
+        <p id="guesses-remaining">Number of Guesses Remaining: 9</p>
         <p id="wrong-letters">Letters Already Guessed:</p>
 
     </div>
     
-
-    <script>
-
-        let winsText = document.getElementById("wins-text");
-        let currentWord = document.getElementById("current-word");
-        let guessRemaining = document.getElementById("guesses-remaining");
-        let wrongLetters = document.getElementById("wrong-letters");
-        let docUnderScore = document.getElementById("current-word");
-
-        // Array of words
-        let computerWords = ["harvest", "cider", "corn", "leaf", "amber"];
-
-        // Random Computer Word
-        let randomNum = Math.floor(Math.random() * computerWords.length);
-        let computerCurrWord = computerWords[randomNum];
-            // Test random word
-            console.log(computerCurrWord);
-
-        // Create underscores to fit length of random word
-        let underScore = [];
-        let generateUnderscore = function () {
-            for (let i = 0; i < computerCurrWord.length; i++) {
-                underScore.push("_");
-            }
-            return underScore;
-        }
-            // Test underscores
-            // console.log(generateUnderscore());
-        generateUnderscore()
-
-        //Display underscores
-        currentWord.textContent = underScore.join(" ");
-    
-        let rightWord = [];
-        let wrongWord = [];
-        let wins = 0;
-        let remaining = 9;
-
-        function empty () {
-            wrongWord.length = 0;
-            remaining = 9;
-        }
-    
-        document.onkeyup = function(event) {
-            let userGuess = event.key;
-            console.log(userGuess);
-            if (computerCurrWord.indexOf(userGuess) > -1) {
-                rightWord.push(userGuess);
-                underScore[computerCurrWord.indexOf(userGuess)] = userGuess;
-            } else {
-                wrongWord.push(userGuess);
-                remaining--;
-                    if (remaining < 1) {
-                            empty ()
-                        }
-            }
-
-            if (underScore.join("") == computerCurrWord) {
-                wins++;
-                empty()
-            }
-
-            winsText.textContent = `Wins: ${wins}`;
-            currentWord.textContent = underScore.join(" ");
-            guessRemaining.textContent = `Number of Guesses Remaining: ${remaining}`;
-            wrongLetters.textContent = `Letters Already Guessed: ${wrongWord.join(" ")}`;
-        }
-        
-    </script>
+    <script src="assets/javascript/game.js"></script>
 
 </body>
 </html>
