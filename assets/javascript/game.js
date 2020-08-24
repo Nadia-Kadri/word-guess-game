@@ -2,11 +2,12 @@ let fallWords = ["harvest", "cider", "corn", "leaf", "amber"];
 
 let letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
-let rightWord = [];
 let wins = 0;
 let losses = 0;
 let remaining = 9;
-let wrongWord = [];
+let correctGuesses = [];
+let wrongGuesses = [];
+let allGuesses = [];
 
 let computerCurrWord;
 let start = true;
@@ -21,7 +22,9 @@ let errorMessage = document.querySelector(".error-message");
 
 reset = () => {
   remaining = 9;
-  wrongWord = [];
+  correctGuesses = [];
+  wrongGuesses = [];
+  allGuesses = [];
   underScore = [];
   computerCurrWord = fallWords[Math.floor(Math.random() * fallWords.length)].toLowerCase();
   console.log("computer: " + computerCurrWord);
@@ -48,7 +51,7 @@ document.onkeyup = event => {
     errorMessage.textContent = "Error: Please enter a valid letter";
     errorMessage.classList.add("error-message-transition");
     return;
-  } else if (wrongWord.includes(userGuess)) {
+  } else if (allGuesses.includes(userGuess)) {
     errorMessage.textContent = `Error: You've already guessed the letter: ${userGuess}`;
     errorMessage.classList.add("error-message-transition");
     return;
@@ -57,30 +60,32 @@ document.onkeyup = event => {
   };
 
   if (computerCurrWord.indexOf(userGuess) > -1) {
-    rightWord.push(userGuess);
+    allGuesses.push(userGuess);
+    correctGuesses.push(userGuess);
     underScore[computerCurrWord.indexOf(userGuess)] = userGuess;
   } else {
-    wrongWord.push(userGuess);
+    allGuesses.push(userGuess);
+    wrongGuesses.push(userGuess);
     remaining--;
     if (remaining < 1) {
       losses++;
-      reset()
-      generateUnderscore()
-    }
-  }
+      reset();
+      generateUnderscore();
+    };
+  };
 
   if (underScore.join("") == computerCurrWord) {
     wins++;
-    reset()
-    generateUnderscore()
-  }
+    reset();
+    generateUnderscore();
+  };
 
   winsText.textContent = `Wins: ${wins}`;
   lossesText.textContent = `Losses: ${losses}`;
   currentWord.textContent = underScore.join(" ");
   guessRemaining.textContent = `Number of Guesses Remaining: ${remaining}`;
-  wrongLetters.textContent = `Letters Already Guessed: ${wrongWord.join(" ")}`;
-}
+  wrongLetters.textContent = `Letters Already Guessed: ${wrongGuesses.join(" ")}`;
+};
 
 function removeTransition(e) {
   if (e.propertyName !== 'transform') return;
